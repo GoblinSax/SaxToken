@@ -1,7 +1,7 @@
-//SPDX-License-Identifier: Unlicense
-pragma solidity ^0.8.0;
+pragma solidity 0.5.0;
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
+import "openzeppelin-solidity/contracts/token/ERC20/ERC20Detailed.sol";
 import "./Administratable.sol";
 
 /**
@@ -9,7 +9,7 @@ Keeps track of whitelists and can check if sender and reciever are configured to
 Only administrators can update the whitelists.
 Any address can only be a member of one whitelist at a time.
  */
-contract WhiteListable is Administratable {
+contract Whitelistable is Administratable {
     // Zero is reserved for indicating it is not on a whitelist
     uint8 constant NO_WHITELIST = 0;
 
