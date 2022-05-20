@@ -1,20 +1,21 @@
-//SPDX-License-Identifier: Unlicense
-pragma solidity ^0.8.0;
+pragma solidity 0.5.0;
 
-import "./WhiteListable.sol";
+import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
+import "openzeppelin-solidity/contracts/token/ERC20/ERC20Detailed.sol";
+import "./Whitelistable.sol";
 import "./Restrictable.sol";
 import "./ERC1404.sol";
 
-contract SaxToken is ERC1404, WhiteListable, Restrictable {
+contract SukuToken is ERC1404, ERC20, ERC20Detailed, Whitelistable, Restrictable {
 
     // Token Details
-    string constant TOKEN_NAME = "SAX";
-    string constant TOKEN_SYMBOL = "SAX";
+    string constant TOKEN_NAME = "SUKU";
+    string constant TOKEN_SYMBOL = "SUKU";
     uint8 constant TOKEN_DECIMALS = 18;
 
-    // Token supply - 1 Million Tokens, with 18 decimal precision
-    uint256 constant MILLION = 1000000;
-    uint256 constant TOKEN_SUPPLY = MILLION * (10 ** uint256(TOKEN_DECIMALS));
+    // Token supply - 1.5 Billion Tokens, with 18 decimal precision
+    uint256 constant HUNDRED_MILLION = 100000000;
+    uint256 constant TOKEN_SUPPLY = 15 * HUNDRED_MILLION * (10 ** uint256(TOKEN_DECIMALS));
 
     // ERC1404 Error codes and messages
     uint8 public constant SUCCESS_CODE = 0;
@@ -28,8 +29,8 @@ contract SaxToken is ERC1404, WhiteListable, Restrictable {
     Constructor for the token to set readable details and mint all tokens
     to the contract creator.
      */
-    constructor(address owner)
-        ERC20(TOKEN_NAME, TOKEN_SYMBOL)
+    constructor(address owner) public 
+        ERC20Detailed(TOKEN_NAME, TOKEN_SYMBOL, TOKEN_DECIMALS)
     {		
         _transferOwnership(owner);
         _mint(owner, TOKEN_SUPPLY);
@@ -41,7 +42,6 @@ contract SaxToken is ERC1404, WhiteListable, Restrictable {
      */
     function detectTransferRestriction (address from, address to, uint256)
         public
-        override
         view
         returns (uint8)
     {               
@@ -73,8 +73,7 @@ contract SaxToken is ERC1404, WhiteListable, Restrictable {
      */
     function messageForTransferRestriction (uint8 restrictionCode)
         public
-        override
-        pure
+        view
         returns (string memory)
     {
         if (restrictionCode == SUCCESS_CODE) {
@@ -103,7 +102,6 @@ contract SaxToken is ERC1404, WhiteListable, Restrictable {
      */
     function transfer (address to, uint256 value)
         public
-        override
         notRestricted(msg.sender, to, value)
         returns (bool success)
     {
@@ -115,7 +113,6 @@ contract SaxToken is ERC1404, WhiteListable, Restrictable {
      */
     function transferFrom (address from, address to, uint256 value)
         public
-        override
         notRestricted(from, to, value)
         returns (bool success)
     {
