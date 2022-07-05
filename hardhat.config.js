@@ -7,7 +7,9 @@ const {
   ADDRESS_1_PRI_KEY,
   ADDRESS_2_PRI_KEY,
   TEST_RINKEBY_NODE_URL,
-  ETHERSCAN_KEY
+  ETHERSCAN_KEY,
+  MAINNET_NODE_URL,
+  GRINGOTTS_PRI_KEY
 } = process.env
 
 // This is a sample Hardhat task. To learn how to create your own go to
@@ -36,6 +38,10 @@ module.exports = {
     rinkeby: {
       url: TEST_RINKEBY_NODE_URL,
       accounts: [ADDRESS_1_PRI_KEY, ADDRESS_2_PRI_KEY]
+    },
+    mainnet: {
+      url: MAINNET_NODE_URL,
+      accounts: [GRINGOTTS_PRI_KEY]
     }
   },
   mocha: {
