@@ -12,8 +12,8 @@ contract SaxToken is ERC1404, WhiteListable, Restrictable {
     string constant TOKEN_SYMBOL = "SAX";
     uint8 constant TOKEN_DECIMALS = 18;
 
-    // Token supply - 1 Million Tokens, with 18 decimal precision
-    uint256 constant MILLION = 1000000;
+    // Token supply - 100 Million Tokens, with 18 decimal precision
+    uint256 constant MILLION = 100000000;
     uint256 constant TOKEN_SUPPLY = MILLION * (10 ** uint256(TOKEN_DECIMALS));
 
     // ERC1404 Error codes and messages
